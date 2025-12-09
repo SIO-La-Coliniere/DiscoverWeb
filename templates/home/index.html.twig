@@ -1,20 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
 </style>
+<div class="">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% set cleanRole = role|replace({'ROLE_': ''})|lower %}
+    <h1>{{ cleanRole |upper}}</h1>
+    {% include 'roles/' ~ cleanRole ~ '.html.twig' %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/morgane_pesquerdeniaud/PhpstormProjects/DiscoverWeb/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/home/morgane_pesquerdeniaud/PhpstormProjects/DiscoverWeb/templates/home/index.html.twig</code></li>
-    </ul>
+
 </div>
 {% endblock %}
