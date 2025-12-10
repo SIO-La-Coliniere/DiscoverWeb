@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ministages à venir{% endblock %}
+
+{% block body %}
+    <section class="space-y-6">
+        <header class="space-y-2">
+            <h1 class="headline">Les Ministages à venir 🚀</h1>
+            <p class="muted">Rejoignez les plus grands défis Tech de France</p>
+        </header>
+
+        {%  if ministages is empty %}
+            <div class="card p-6">
+                <p class="muted">Aucun événement pour le moment.</p>
+            </div>
+        {% else %}
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">Formations</th>
+                    <th scope="col">Nom Etablissement</th>
+                    <th scope="col">Lieu</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Heure début</th>
+                    <th scope="col">Heure fin</th>
+                    <th scope="col">Places</th>
+                    <th scope="col">Places restante</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for m in ministages %}
+                    <tr>
+                        <th>{{ m.id ?? 'Ministages sans formations' }}</th>
+                        <td>{{ m.etablissement ?? 'ministage sans etablissement' }}</td>
+                        <td>{{ m.lieu ?? 'ministage sans lieu' }}</td>
+                        <td>{{ m.date_debut|date("m/d/Y")}}</td>
+                        <td>{{ m.date_debut|date("H:i") }}</td>
+                        <td>{{ m.date_fin|date("H:i") }}</td>
+                        <td>{{ m.nb_place ?? 'Nombre de place inconnu' }}</td>
+                        <td>{{ m.nb_place_reste ?? 'Nombre de place restante inconnu' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+
+        {% endif %}
+    </section>
+{% endblock %}
