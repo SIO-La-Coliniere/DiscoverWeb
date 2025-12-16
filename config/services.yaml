@@ -18,3 +18,18 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    http_client.discover:
+        class: Symfony\Contracts\HttpClient\HttpClientInterface
+        factory: [ '@http_client', 'withOptions' ]
+        arguments:
+            -   base_uri: '%env(resolve:DISCOVER_API_BASE)%'
+                verify_peer: '%env(bool:HTTP_VERIFY_PEER)%'
+                timeout: 10
+
+    App\Service\ApiClient:
+        arguments:
+            $http: '@http_client.discover'
+            $stack: '@request_stack'
+            $apiBase: '%env(resolve:DISCOVER_API_BASE)%'
+            $envToken: '%env(resolve:DISCOVER_API_TOKEN)%'

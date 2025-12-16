@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DiscoverWeb.iml" filepath="$PROJECT_DIR$/.idea/DiscoverWeb.iml" />
+      <module fileurl="file://$USER_HOME$/Projet/ministage/.idea/ministageAPI.iml" filepath="$USER_HOME$/Projet/ministage/.idea/ministageAPI.iml" />
     </modules>
   </component>
 </project>
