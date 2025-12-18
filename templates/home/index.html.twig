@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+<div class="">
+
+    {% set cleanRole = role|replace({'ROLE_': ''})|lower %}
+    <h1>{{ cleanRole |upper}}</h1>
+    {% include 'roles/' ~ cleanRole ~ '.html.twig' %}
+
+
+</div>
+{% endblock %}
