@@ -274,6 +274,7 @@
       <path value="$PROJECT_DIR$/../discoverapi/vendor/lcobucci/clock" />
       <path value="$PROJECT_DIR$/../discoverapi/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/../discoverapi/vendor/lexik/jwt-authentication-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php85" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
@@ -283,7 +284,6 @@
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" />
-      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/../discoverapi/vendor/autoload.php" />
     </phpunit_settings>
   </component>
   <component name="PsalmOptionsConfiguration">

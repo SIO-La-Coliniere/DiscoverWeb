@@ -13,9 +13,10 @@
                 <p class="muted">Aucun événement pour le moment.</p>
             </div>
         {% else %}
-            <table>
+        <div class="container px-6 mx-auto grid">
+            <table class="w-full whitespace-no-wrap">
                 <thead>
-                <tr>
+                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <th scope="col">Formations</th>
                     <th scope="col">Nom Etablissement</th>
                     <th scope="col">Lieu</th>
@@ -26,11 +27,11 @@
                     <th scope="col">Places restante</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {% for m in ministages %}
-                    <tr>
+                    <tr class="text-gray-700 dark:text-gray-400">
                         <th>{{ m.id ?? 'Ministages sans formations' }}</th>
-                        <td>{{ m.etablissement ?? 'ministage sans etablissement' }}</td>
+                        <td>{{ m.etablissement.nom_etab ?? 'ministage sans etablissement' }}</td>
                         <td>{{ m.lieu ?? 'ministage sans lieu' }}</td>
                         <td>{{ m.date_debut|date("m/d/Y")}}</td>
                         <td>{{ m.date_debut|date("H:i") }}</td>
@@ -43,6 +44,8 @@
                 <tfoot>
                 </tfoot>
             </table>
+        </div>
+            <a href="/">Connexion</a>
 
         {% endif %}
     </section>
