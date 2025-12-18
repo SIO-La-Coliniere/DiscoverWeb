@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ReservationDashboardController!{% endblock %}
+
+{% block body %}
+{% set bool_color = {
+    0: {"text_confirmation": "Reservé", "classes": "text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100"},
+    1: {"text_confirmation": "Non reservé", "classes": "text-red-700 bg-red-100 dark:text-red-100 dark:bg-red-700"}
+} %}
+    <div class="container px-6 mx-auto grid">
+        <h1>Reservations</h1>
+
+        <table class="w-full whitespace-no-wrap">
+            <thead>
+                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <th class="px-4 py-3">Eleve</th>
+                    <th class="px-4 py-3">Etablissement</th>
+                    <th class="px-4 py-3">Date et heure</th>
+                    <th class="px-4 py-3">Absence</th>
+                    <th class="px-4 py-3">Confiration</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                {% for reservation in reservations %}
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td class="px-4 py-3 text-sm">
+                            {{ reservation.t_eleve.nom }}
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                            {{ reservation.t_ministage.etablissement.nom_etab }}
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                            {{ reservation.t_ministage.date_debut|date('d/m/Y H:i') }}
+                        </td>
+                        <td class="px-4 py-3 text-xs">
+                            <span class="px-2 py-1 font-semibold leading-tight rounded-full {{ bool_color[reservation.absence].classes }}">{{ bool_color[reservation.absence].text_confirmation }}</span>
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+
+                            <span class="px-2 py-1 font-semibold leading-tight rounded-full {{ bool_color[reservation.confirmation].classes }}">{{ bool_color[reservation.confirmation].text_confirmation }}</span>
+                        </td>
+
+                    </tr>
+                {% else %}
+                    <em>Aucune réservation en cour.</em>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,7 +1,6 @@
 <?php
-
 namespace App\Service;
-
+use RuntimeException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -61,7 +60,6 @@ final class ApiClient
         $response = $this->http->request('GET', $url, $this->opts());
 
         $status = $response->getStatusCode();
-
         if ($status >= 400) {
             throw new \RuntimeException(sprintf(
                 'Erreur HTTP %d lors de l’appel GET %s : %s',
@@ -71,6 +69,6 @@ final class ApiClient
             ));
         }
 
-        return $response->toArray();
+        return $response->toArray(false);
     }
 }
