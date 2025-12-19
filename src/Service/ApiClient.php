@@ -25,9 +25,20 @@ final class ApiClient
 
     private function authHeader(): array
     {
-        if ($this->envToken) {
-            return ['Authorization' => 'Bearer ' . $this->envToken];
+        $session = $this->stack->getSession();
+
+        if ($session && $session->has('api_token')) {
+            return [
+                'Authorization' => 'Bearer ' . $session->get('api_token')
+            ];
         }
+
+        if ($this->envToken) {
+            return [
+                'Authorization' => 'Bearer ' . $this->envToken
+            ];
+        }
+
         return [];
     }
 

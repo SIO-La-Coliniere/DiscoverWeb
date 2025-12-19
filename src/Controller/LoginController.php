@@ -48,15 +48,15 @@ final class LoginController extends AbstractController
                 $session->set('api_token', $loginResponse['token']);
 
                 // 3️⃣ Fetch user roles from API
-                $roleResponse = $api->get('/api/user/' . $email, withAuth: false);
-                $roles = $roleResponse['roles'] ?? [];
+                $roleResponse = $api->get('/api/user/' . $email, withAuth: true);
+
+                $roles = is_array($roleResponse) ? $roleResponse : [];
 
                 if (empty($roles)) {
                     $this->addFlash('error', 'Aucun rôle trouvé pour cet utilisateur');
                     return $this->redirectToRoute('app_login');
                 }
 
-                // Store the first role in session (adjust if multiple roles)
                 $session->set('role', $roles[0]);
 
                 // 4️⃣ Redirect to home
