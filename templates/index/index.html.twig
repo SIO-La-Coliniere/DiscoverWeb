@@ -3,10 +3,7 @@
 
 {% block body %}
     <section class="space-y-6">
-        <header class="space-y-2">
-            <h1 class="headline">Les Ministages à venir 🚀</h1>
-            <p class="muted">Rejoignez les plus grands défis Tech de France</p>
-        </header>
+        <h1 class="text-3xl font-bold">Les Ministages à venir 🚀</h1>
 
         {%  if ministages is empty %}
             <div class="card p-6">
@@ -45,7 +42,7 @@
                 </tfoot>
             </table>
         </div>
-            <a href="/">Connexion</a>
+            <a href="/login">Connexion</a>
 
         {% endif %}
     </section>
