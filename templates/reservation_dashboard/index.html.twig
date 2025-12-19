@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello ReservationDashboardController!{% endblock %}
-
+{% block stylesheets %}   <link rel="stylesheet" href="styles.css"> {% endblock %}
 {% block body %}
 {% set bool_color = {
     0: {"text_confirmation": "Reservé", "classes": "text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100"},
@@ -10,6 +10,22 @@
     <div class="container px-6 mx-auto grid">
         <h1>Reservations</h1>
 
+        <button type="button" value="add_resa" name="add_resa" onemptied="">➕</button>
+        <button class="popup" onclick="myFunction()">Click me!
+            <span class="popuptext" id="myPopup">
+                <input alt="formation" type="text">
+                <h3>frheoa</h3>
+                <button type="submit"> Modifier </button>
+
+            </span>
+        </button>
+        <script>
+            // When the user clicks on <div>, open the popup
+            function myFunction() {
+                var popup = document.getElementById("myPopup");
+                popup.classList.toggle("show");
+            }
+        </script>
         <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
