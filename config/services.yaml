@@ -17,12 +17,6 @@ services:
     App\:
         resource: '../src/'
 
-    App\Service\ApiClient:
-        arguments:
-            $http: '@http_client'
-            $stack: '@request_stack'
-            $apiBase: '%env(resolve:DISCOVER_API_BASE)%'
-            $envToken: '%env(default::string:DISCOVER_API_TOKEN)%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
