@@ -1,6 +1,6 @@
 <?php
 namespace App\Service;
-
+use RuntimeException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -53,9 +53,12 @@ final class ApiClient
     private function opts(array $extra = []): array
     {
         return array_merge([
-            'headers' => $this->defaultHeaders(),
-            'timeout' => 10,
-            'max_redirects' => 5,
+            'timeout'       => 10,
+            'max_redirects' => 0,
+            'headers'       => array_merge(
+                $this->defaultHeaders(),
+                $this->authHeader(),
+            ),
         ], $extra);
     }
 
