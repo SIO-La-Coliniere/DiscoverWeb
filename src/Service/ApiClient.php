@@ -15,21 +15,30 @@ final class ApiClient
 
     private function base(): string
     {
-        // URL de base sans slash final
         return rtrim($this->apiBase, '/');
     }
 
     private function path(string $path): string
     {
-        // On garantit que le path commence par /
         return '/' . ltrim($path, '/');
     }
 
     private function authHeader(): array
     {
-        if ($this->envToken) {
-            return ['Authorization' => 'Bearer ' . $this->envToken];
+        $session = $this->stack->getSession();
+
+        if ($session && $session->has('api_token')) {
+            return [
+                'Authorization' => 'Bearer ' . $session->get('api_token')
+            ];
         }
+
+        if ($this->envToken) {
+            return [
+                'Authorization' => 'Bearer ' . $this->envToken
+            ];
+        }
+
         return [];
     }
 
@@ -57,18 +66,35 @@ final class ApiClient
     {
         $url = $this->base() . $this->path($path);
 
-        $response = $this->http->request('GET', $url, $this->opts());
+        $options = $withAuth ? $this->opts(['headers' => array_merge($this->defaultHeaders(), $this->authHeader())])
+            : $this->opts();
 
-        $status = $response->getStatusCode();
-        if ($status >= 400) {
-            throw new \RuntimeException(sprintf(
-                'Erreur HTTP %d lors de l’appel GET %s : %s',
-                $status,
-                $url,
-                $response->getContent(false) // contenu brut, sans relancer une exception interne
-            ));
+        $response = $this->http->request('GET', $url, $options);
+
+        if ($response->getStatusCode() >= 400) {
+            throw new \RuntimeException('Unexpected HTTP status code ' . $response->getStatusCode());
         }
 
-        return $response->toArray(false);
+        return $response->toArray();
+    }
+
+    public function post(string $path, array $data = [], bool $withAuth = false): array
+    {
+        $url = $this->base() . $this->path($path);
+
+        $options = $this->opts([
+            'headers' => $withAuth
+                ? array_merge($this->defaultHeaders(), $this->authHeader())
+                : $this->defaultHeaders(),
+            'json' => $data,
+        ]);
+
+        $response = $this->http->request('POST', $url, $options);
+
+        if ($response->getStatusCode() >= 400) {
+            throw new \RuntimeException('Unexpected HTTP status code ' . $response->getStatusCode());
+        }
+
+        return $response->toArray();
     }
 }

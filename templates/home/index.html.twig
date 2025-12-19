@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
-
 {% block body %}
-<style>
+    <div class="p-6">
+        {% if role is not empty %}
+            {% set cleanRole = role|replace({'ROLE_': ''})|lower %}
+            <h1 class="text-3xl font-bold">{{ cleanRole | upper }}</h1>
 
-</style>
-<div class="">
-
-    {% set cleanRole = role|replace({'ROLE_': ''})|lower %}
-    <h1>{{ cleanRole |upper}}</h1>
-    {% include 'roles/' ~ cleanRole ~ '.html.twig' %}
-
-
-</div>
+            {# Vérifie que le template existe avant d’inclure #}
+            {% set template_path = 'roles/' ~ cleanRole ~ '.html.twig' %}
+            {% if template_path is defined %}
+                {% include template_path ignore missing %}
+            {% else %}
+                <p>Template pour le rôle {{ cleanRole }} introuvable.</p>
+            {% endif %}
+        {% else %}
+            <p>Rôle non défini</p>
+        {% endif %}
+    </div>
 {% endblock %}
